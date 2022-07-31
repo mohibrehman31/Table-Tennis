@@ -25,6 +25,6 @@ if __name__ == '__main__':
     
     wget.download('https://lab.osai.ai/datasets/openttgames/data/game_1.mp4',train_video_dir)
     wget.download('https://lab.osai.ai/datasets/openttgames/data/test_1.mp4',test_video_dir)
-    wget.download('https://lab.osai.ai/datasets/openttgames/data/test_1.zip',train_annotation_dir)
+    wget.download('https://lab.osai.ai/datasets/openttgames/data/game_1.zip',train_annotation_dir)
     wget.download('https://lab.osai.ai/datasets/openttgames/data/test_1.zip',test_annotation_dir)
 

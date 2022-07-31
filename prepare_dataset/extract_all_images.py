@@ -27,15 +27,18 @@ def extract_images_from_videos(video_path, out_images_dir):
         ret, img = video_cap.read()
         if ret:
             frame_cnt += 1
-            image_path = os.path.join(sub_images_dir, 'img_{:06d}.jpg'.format(frame_cnt))
-            if os.path.isfile(image_path):
-                print('video {} had been already extracted'.format(video_path))
-                break
-            cv2.imwrite(image_path, img)
+            if(frame_cnt>100 & frame_cnt<1100):
+                print(frame_cnt)
+                image_path = os.path.join(sub_images_dir, 'img_{:06d}.jpg'.format(frame_cnt))
+                if os.path.isfile(image_path):
+                    print('video {} had been already extracted'.format(video_path))
+                    break
+                cv2.imwrite(image_path, img)
         else:
             break
-        if cv2.waitKey(10) & 0xFF == ord('q'):
+        if cv2.waitKey(10) & 0xFF == ord('q') & frame_cnt>400:
             break
+        
     video_cap.release()
     print('done extraction: {}'.format(video_path))
 

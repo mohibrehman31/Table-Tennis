@@ -40,7 +40,7 @@ def extract_images_from_videos(video_path, events_annos_path, out_images_dir):
     print('video_fn: {}.mp4, f_width: {}, f_height: {}'.format(video_fn, f_width, f_height))
     print('number of frames in the video: {}, number of selected frames: {}'.format(n_frames, len(selected_indexes)))
     frame_cnt = -1
-    while True:
+    while (frame_cnt>100 and frame_cnt<400) or (frame>0) :
         ret, img = video_cap.read()
         if ret:
             frame_cnt += 1
