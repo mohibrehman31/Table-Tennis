@@ -1,8 +1,9 @@
 import os
 from glob import glob
-
+import joblib
 import cv2
-
+annotations_list  = joblib.load('annotations_list.pkl')
+print(annotations_list)
 
 def make_folder(folder_path):
     if not os.path.isdir(folder_path):
@@ -12,6 +13,7 @@ def make_folder(folder_path):
 def extract_images_from_videos(video_path, out_images_dir):
     video_fn = os.path.basename(video_path)[:-4]
     sub_images_dir = os.path.join(out_images_dir, video_fn)
+
 
     make_folder(sub_images_dir)
 
@@ -25,9 +27,9 @@ def extract_images_from_videos(video_path, out_images_dir):
     frame_cnt = -1
     while True:
         ret, img = video_cap.read()
-        if ret:
+        if ret or frame_cnt == 3099:
             frame_cnt += 1
-            if(frame_cnt>100 & frame_cnt<1100):
+            if(frame_cnt in annotations_list):
                 print(frame_cnt)
                 image_path = os.path.join(sub_images_dir, 'img_{:06d}.jpg'.format(frame_cnt))
                 if os.path.isfile(image_path):
@@ -36,7 +38,7 @@ def extract_images_from_videos(video_path, out_images_dir):
                 cv2.imwrite(image_path, img)
         else:
             break
-        if cv2.waitKey(10) & 0xFF == ord('q') & frame_cnt>400:
+        if cv2.waitKey(10) & 0xFF == ord('q'):
             break
         
     video_cap.release()
